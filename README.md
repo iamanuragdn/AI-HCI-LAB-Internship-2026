@@ -1,4 +1,8 @@
-# 🎓 NIT Agartala ILAB — Summer Internship 2026
+# NIT Agartala ILAB — Summer Internship 2026
+
+![Status](https://img.shields.io/badge/status-active-success)
+![Duration](https://img.shields.io/badge/duration-7%20weeks-blue)
+![Program](https://img.shields.io/badge/program-Summer%20Project%20%26%20Skill%202026-lightgrey)
 
 **Intern:** Anurag Debnath  
 **Supervisor:** Dr. Suman Deb  
@@ -8,7 +12,7 @@
 
 ---
 
-## 📋 Program Modules
+## Program Modules
 
 | Module | Topic | Status |
 |--------|-------|--------|
@@ -20,7 +24,7 @@
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 - `Arduino/` — C++ scripts for Arduino Uno.
 - `Daily_Logs/` — Comprehensive weekly logs.
@@ -30,7 +34,7 @@
 
 ---
 
-## 🔧 Key Tools & Technologies
+## Key Tools & Technologies
 - **Languages:** Python, C++, HTML/CSS, JavaScript
 - **Hardware:** SLAMTEC RPLIDAR C1, Arduino Uno, DHT22 Sensor, Raspberry Pi
 - **Software/Libraries:** Arduino IDE, Matplotlib, PySerial, OpenCV, NumPy, YOLOv8, ROS
@@ -38,10 +42,10 @@
 
 ---
 
-## 📅 Quick Log
+## Quick Log
 
 | Week | Focus | Highlights |
 |------|-------|------------|
-| Week 1 | Orientation + Web Tech | Environment setup |
-| Week 2 | Embedded Systems | Arduino Uno + DHT22 integration & software calibration ✅ |
-| Week 3 | Robotics & Web Arch | RPLIDAR C1 live 2D mapping + Serverless HTML to Google Sheets ✅ |
+| Week 1 | Web Tech & Networking | Ubuntu VM static IP setup + SSH and Python HTTP server deployment |
+| Week 2 | Embedded Systems | Arduino Uno + DHT22 integration & software calibration |
+| Week 3 | Robotics & Web Arch | RPLIDAR C1 live 2D mapping + Serverless HTML to Google Sheets |

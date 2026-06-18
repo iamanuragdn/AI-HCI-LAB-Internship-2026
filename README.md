@@ -1,10 +1,9 @@
-cat > README.md << 'EOF'
 # 🎓 NIT Agartala ILAB — Summer Internship 2026
 
-**Intern:** Anurag  
+**Intern:** Anurag Debnath  
 **Supervisor:** Dr. Suman Deb  
 **Institution:** NIT Agartala — CSE Department ILAB  
-**Duration:** 10 Weeks | June 2026  
+**Duration:** June 1, 2026 – July 20, 2026 (7 Weeks)  
 **Program:** Summer Project and Skill Program 2026  
 
 ---
@@ -14,8 +13,8 @@ cat > README.md << 'EOF'
 | Module | Topic | Status |
 |--------|-------|--------|
 | Module 1 | Web Technologies | 🟡 In Progress |
-| Module 2 | Embedded Systems & TinyML | ⬜ Upcoming |
-| Module 3 | Intelligent Robotics | ⬜ Upcoming |
+| Module 2 | Embedded Systems & TinyML | 🟡 In Progress |
+| Module 3 | Intelligent Robotics | 🟡 In Progress |
 | Module 4 | IoT Dashboard & Autonomous Control | ⬜ Upcoming |
 | Module 5 | Capstone Group Project | ⬜ Upcoming |
 
@@ -23,22 +22,19 @@ cat > README.md << 'EOF'
 
 ## 📁 Repository Structure
 
-- `Daily_Logs/` — Day-wise progress notes
-- `LiDAR/` — RPLIDAR C1 connection and visualization
-- `WebTech/` — Web technologies work
-- `EmbeddedSystems/` — Embedded & TinyML work
-- `Robotics/` — Robotics projects
-- `IoT/` — IoT dashboard work
-- `Capstone/` — Final group project
+- `Arduino/` — C++ scripts for Arduino Uno.
+- `Daily_Logs/` — Comprehensive weekly logs.
+  - `assets/` — Visual evidence and hardware wiring photos.
+- `LiDAR/` — Python scripts for SLAMTEC RPLIDAR C1 connection and 2D visualization.
+- `google_sheet.html` — Custom serverless HTML frontend integrated with Google Forms/Sheets.
 
 ---
 
 ## 🔧 Key Tools & Technologies
-- Python, OpenCV, NumPy
-- RPLIDAR C1 (SLAMTEC)
-- Ubuntu, Raspberry Pi
-- YOLOv8, TinyML
-- ROS (Robot Operating System)
+- **Languages:** Python, C++, HTML/CSS, JavaScript
+- **Hardware:** SLAMTEC RPLIDAR C1, Arduino Uno, DHT22 Sensor, Raspberry Pi
+- **Software/Libraries:** Arduino IDE, Matplotlib, PySerial, OpenCV, NumPy, YOLOv8, ROS
+- **Architecture:** Serverless Web Architecture (Google Forms/Sheets API), macOS (M1) / UTM VM
 
 ---
 
@@ -47,6 +43,5 @@ cat > README.md << 'EOF'
 | Week | Focus | Highlights |
 |------|-------|------------|
 | Week 1 | Orientation + Web Tech | Environment setup |
-| Week 2 | Networking + Ubuntu Server | SSH, static IP, HTTP server |
-| Week 3 | LiDAR + Robotics Intro | RPLIDAR C1 live visualization ✅ |
-EOF
+| Week 2 | Embedded Systems | Arduino Uno + DHT22 integration & software calibration ✅ |
+| Week 3 | Robotics & Web Arch | RPLIDAR C1 live 2D mapping + Serverless HTML to Google Sheets ✅ |

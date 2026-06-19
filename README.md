@@ -4,7 +4,7 @@
 ![Duration](https://img.shields.io/badge/duration-7%20weeks-blue)
 ![Program](https://img.shields.io/badge/program-Summer%20Project%20%26%20Skill%202026-lightgrey)
 
-**Intern:** Anurag Debnath  
+**Intern:** Anurag Debnath and Abhilash Ghosh 
 **Supervisor:** Dr. Suman Deb  
 **Institution:** NIT Agartala — CSE Department AI HCI Lab  
 **Duration:** June 1, 2026 – July 20, 2026 (7 Weeks)  

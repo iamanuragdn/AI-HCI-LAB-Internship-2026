@@ -9,7 +9,7 @@
 
 ### Focus Area: Embedded Systems — DHT22 Sensor Integration with Arduino Uno  
 **Hardware:** Arduino Uno, DHT22 Temperature & Humidity Sensor  
-**Environment:** Arduino IDE / macOS  
+**Environment:** Arduino IDE / macOS / Windows
 
 #### ✅ What I Did
 1. **Hardware Setup & Wiring:**

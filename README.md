@@ -26,26 +26,31 @@
 
 ## Repository Structure
 
-- `Arduino/` — C++ scripts for Arduino Uno.
-- `Daily_Logs/` — Comprehensive weekly logs.
+- `Arduino/`
+  - `sketch_jun12b/temp_humidity/` — C++ scripts for Arduino Uno.
+- `Daily_Logs/` [Week-1.md, Week-2.md, Week-3.md, Week-4.md] — Comprehensive weekly logs.
   - `assets/` — Visual evidence and hardware wiring photos.
 - `LiDAR/` — Python scripts for SLAMTEC RPLIDAR C1 connection and 2D visualization.
+  - `other codes/` 
+- `Raspberry/` 
+  - `Object Detection/` — OpenCV and Object Detection implementation.
 - `google_sheet.html` — Custom serverless HTML frontend integrated with Google Forms/Sheets.
+- `.gitattributes`, `.gitignore`, `LICENSE`, `README.md` — Core repository configuration files.
 
 ---
 
 ## Key Tools & Technologies
 - **Languages:** Python, C++, HTML, CSS, JavaScript
-- **Hardware:** SLAMTEC RPLIDAR C1, Arduino Uno, DHT22 Sensor
-- **Software/Libraries:** Arduino IDE, Adafruit DHT Sensor Library, Adafruit Unified Sensor Library, PySerial, Matplotlib, NumPy, OpenSSH Server, NetworkManager (`nmcli`), Python `http.server`, VS Code, Python virtual environment (`.venv`)
-- **Architecture/Platforms:** Serverless web workflow with Google Forms and Google Sheets, macOS (M1), Ubuntu 26.04 LTS on UTM VM
-
+- **Hardware:** SLAMTEC RPLIDAR C1, Arduino Uno, DHT22 Sensor, Raspberry Pi (Arm64), EMEET SmartCam S600
+- **Software/Libraries:** Arduino IDE, Adafruit DHT Sensor Library, Adafruit Unified Sensor Library, PySerial, Matplotlib, NumPy, OpenSSH Server, NetworkManager (`nmcli`), Python `http.server`, VS Code, Python virtual environment (`.venv`), OpenCV
+- **Architecture/Platforms:** Serverless web workflow with Google Forms and Google Sheets, macOS (M1), Ubuntu 26.04 LTS on UTM VM, Raspberry Pi OS (Debian Bookworm)
 ---
 
 ## Quick Log
 
 | Week | Focus | Highlights |
 |------|-------|------------|
-| Week 1 | Web Tech & Networking | Ubuntu VM static IP setup + SSH and Python HTTP server deployment |
-| Week 2 | Embedded Systems | Arduino Uno + DHT22 integration & software calibration |
-| Week 3 | Robotics & Web Arch | RPLIDAR C1 live 2D mapping + Serverless HTML to Google Sheets |
+| Week&nbsp;1 | Web Tech & Networking | Ubuntu VM static IP setup + SSH and Python HTTP server deployment |
+| Week&nbsp;2 | Embedded Systems | Arduino Uno + DHT22 integration & software calibration |
+| Week&nbsp;3 | Robotics & Web Arch | RPLIDAR C1 live 2D mapping + Serverless HTML to Google Sheets |
+| Week&nbsp;4 | Intelligent Robotics | Raspberry Pi OpenCV integration for live object detection using an EMEET SmartCam S600 and the SSD MobileNet v3 model, alongside script refactoring for path portability |

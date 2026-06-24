@@ -26,11 +26,16 @@
 
 ## Repository Structure
 
-- `Arduino/` — C++ scripts for Arduino Uno.
-- `Daily_Logs/` — Comprehensive weekly logs.
-  - `assets/` — Visual evidence and hardware wiring photos.
-- `LiDAR/` — Python scripts for SLAMTEC RPLIDAR C1 connection and 2D visualization.
-- `google_sheet.html` — Custom serverless HTML frontend integrated with Google Forms/Sheets.
+- `Arduino/`
+  - `sketch_jun12b/temp_humidity/` — C++ scripts for Arduino Uno.
+- `Daily_Logs/` [Week-1.md, Week-2.md, Week-3.md, Week-4.md] — Comprehensive weekly logs.
+  - `assets/` — Visual evidence and hardware wiring photos.[cite: 2]
+- `LiDAR/` — Python scripts for SLAMTEC RPLIDAR C1 connection and 2D visualization.[cite: 2]
+  - `other codes/` 
+- `Raspberry/` 
+  - `Object Detection/` — OpenCV and Object Detection implementation.
+- `google_sheet.html` — Custom serverless HTML frontend integrated with Google Forms/Sheets.[cite: 2]
+- `.gitattributes`, `.gitignore`, `LICENSE`, `README.md` — Core repository configuration files.
 
 ---
 

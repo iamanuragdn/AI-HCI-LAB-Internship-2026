@@ -56,5 +56,7 @@
 | **"Failed to read from DHT sensor!" Error** | Loose wiring, missing pull-up resistor, or incorrect pin definition | Verified wiring to Digital Pin 2, confirmed 5V power, and ensured the 10kΩ resistor was in place. Double-checked `DHTTYPE` definition in code. |
 | **Incorrect Readings (Drift)** | Factory calibration inaccuracies over time | Calculated the difference against a true baseline and added an offset variable to the code logic to mathematically correct the output. |
 
-#### 📁 Assets
-- temp_humidity.ino (`.ino` format) containing sensor initialization, read loop, error handling, and calibration logic.
+#### 📁 Files Created
+- [temp_humidity.ino](../Arduino/sketch_jun12b/temp_humidity/temp_humidity.ino) (`.ino` format) containing sensor initialization, read loop, error handling, and calibration logic. 
+
+---

@@ -51,6 +51,6 @@
 
 #### 📁 Files Created / Modified
 - `final_object-ident.py` — Fully refactored MobileNet SSD object detection script with relative pathing and live camera capture.
-(path: [final_object-ident.py](../Raspberry/Object%20Detection/final_object-ident.py))
+( path: [final_object-ident.py](../Raspberry/Object%20Detection/final_object-ident.py) )
 
 ---

@@ -29,8 +29,6 @@
    - Created a strict `.venv` isolated environment inside the LiDAR project folder.
    - Installed dependencies: `pyserial`, `matplotlib`, `numpy`.
 
-#### 📸 Visual Evidence
-*(Note: Save your newly uploaded screenshots to the `assets` folder with the names below)*
 
 #### 📸 Visual Evidence
 
@@ -69,9 +67,8 @@
 | Scattering in visualization | Too few points per frame | Increased to 3600 slots & read all bytes |
 
 #### 📁 Files Created
-- `test_lidar2.py` — Raw serial connection test.
-- `read_lidar.py` — Terminal data reader.
-- `visualize_lidar3.py` — Optimal live visualizer.
+- [lidar_raw_numerical_data.py](../LiDAR/lidar_raw_numerical_data.py) — Raw LiDAR data stream
+- [lidar_2d_visualizer.py](../LiDAR/lidar_2d_visualizer.py) — Optimal live 2D visualizer.
 
 #### 🔜 Next Steps
 - [ ] Add obstacle detection (highlight nearest object).
@@ -122,7 +119,7 @@
 | **Forced Redirect:** Submitting data forced a browser redirect to a native Google "Thank You" page, breaking the custom UX. | Implemented a hidden iframe (`<iframe name="hidden_iframe" style="display:none;"></iframe>`) and set the form to target it. Added an `onsubmit` trigger for a local JS alert and page reload. |
 
 #### 📁 Files & Assets Created
-- `google_sheet.html` — The frontend file containing the form structure, inline CSS styling, and submission handling scripts.
+- [google_sheet.html](../google_sheet.html) — The frontend file containing the form structure, inline CSS styling, and submission handling scripts.
 - **Google Form (Backend Handler)** — Configured to passively receive incoming `POST` requests.
 link- https://docs.google.com/forms/d/e/1FAIpQLSey9LJ_Sox9OaQ68d3NkIbKOP22GahAGBNsT5whcQqVpM8iGg/viewform?usp=header
 - **Google Sheet (Database)** — Linked to the form to capture and structure all mapped input data.

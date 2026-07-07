@@ -175,7 +175,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 
 #### 📁 Files Created / Modified
 
-- `CMakeLists.txt` (in `sllidar_ros2`) — patched `ament_target_dependencies` calls to `target_link_libraries` for Lyrical compatibility.
+- [`CMakeLists.txt`](../ros2_ws/src/sllidar_ros2/CMakeLists.txt) (in `sllidar_ros2`) — patched `ament_target_dependencies` calls to `target_link_libraries` for Lyrical compatibility.
 - `~/ros2_ws/` — ROS 2 workspace containing the built `sllidar_ros2` package.
 - RViz config (pending save) — `Fixed Frame: laser`, `LaserScan` display added on `/scan`, `Decay Time: 0.2`.
 

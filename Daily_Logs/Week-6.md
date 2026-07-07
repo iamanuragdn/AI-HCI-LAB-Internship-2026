@@ -31,7 +31,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 * **Compatibility:** ROS 1 is discontinued and simply does not work on newer operating systems like Ubuntu 26.04.
 * **Better Reliability:** ROS 1 relied on a single "master" process; if that crashed, the whole robot system broke. ROS 2 is decentralized, making it much safer and closer to real-world industrial standards.
 * **Future-Proofing:** ROS 2 supports real-time systems, runs on smaller embedded hardware, and is where all active robotics development is happening today.
-
+<br>
 
 ### ✅ What I Did
 
@@ -101,6 +101,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 * **The Issue:** The terminal was logging repeated `Message Filter dropping message for frame 'laser'... reason 'Discarding message because the queue is full'` warnings — a separate cause of dropout from the Decay Time issue above.
 * **The Cause:** The LaserScan display's internal message queue (default size `10`) was filling up faster than RViz could render each frame.
 * **The Fix:** Increased **Queue Size** on the LaserScan display from `10` to `30`, giving RViz more buffer room and eliminating the dropped-frame warnings. Confirmed via `ros2 topic hz /scan` that the underlying publish rate was steady throughout — the drops were a rendering-side backlog, not a sensor/data problem.
+<br>
 
 ### 📸 Visual Evidence
 <table>
@@ -144,7 +145,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 | **Health Status** | OK |
 | **Build Result** | Clean (`colcon build`, 0 errors after CMakeLists.txt patch) |
 
-
+<br>
 
 ### 🧠 Key Learnings
 
@@ -156,7 +157,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 - **`ros2 topic hz` is a fast, reliable sanity check** — before touching RViz, confirming the topic itself is publishing steadily rules out sensor/driver issues, isolating any further display problems to RViz configuration.
 - **Flickering and dropped frames in RViz aren't always the same problem.** Decay Time (a rendering setting) and Queue Size (a buffering setting) both affect how "smooth" a live display looks, but fix different root causes — worth checking both independently rather than assuming one fix covers everything.
 
-
+<br>
 
 ### ❌ Issues Faced & Solutions
 
@@ -171,7 +172,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 | LaserScan points flickering on/off rapidly | LaserScan display's Decay Time defaulted to `0`, clearing every frame before the next 10 Hz scan arrived | Set Decay Time to `0.2` in the LaserScan display properties |
 | Terminal repeatedly logged `Message Filter dropping message... queue is full` | LaserScan display's Queue Size (default `10`) filled up faster than RViz could render | Increased Queue Size to `30` in the LaserScan display properties |
 
-
+<br>
 
 ### 📁 Files Created / Modified
 
@@ -180,6 +181,8 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 - RViz config (pending save) — `Fixed Frame: laser`, `LaserScan` display added on `/scan`, `Decay Time: 0.2`.
 
 **Next Steps:** Save the working RViz configuration for one-command reloading (`rviz2 -d <config>.rviz`), then move on to mounting the RPLIDAR on a chassis and integrating Arduino-driven movement commands.
+
+<br>
 
 ### 🚀 Appendix: Setup & Launch on a New Machine
 

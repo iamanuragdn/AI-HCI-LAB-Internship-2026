@@ -7,13 +7,13 @@
 
 ## Day 1: July 7, 2026
 
-### Robotics — SLAMTEC RPLIDAR C1 Integration with ROS 2 on a Virtualized Ubuntu Environment
+## Robotics — SLAMTEC RPLIDAR C1 Integration with ROS 2 on a Virtualized Ubuntu Environment
 
 **Hardware:** SLAMTEC RPLIDAR C1 (CP2102N USB-to-UART bridge)
 **Environment:** Apple Silicon (M1) Mac, UTM (QEMU), Ubuntu 26.04 (Resolute) guest, ROS 2 Lyrical
 
 
-#### 🧠 What is ROS, and Why ROS 2?
+### 🧠 What is ROS, and Why ROS 2?
 
 **What is ROS?**
 ROS (Robot Operating System) isn't actually an operating system like Windows or macOS. Instead, it acts as a communication network that helps all the different software parts of a robot talk to each other. 
@@ -33,7 +33,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 * **Future-Proofing:** ROS 2 supports real-time systems, runs on smaller embedded hardware, and is where all active robotics development is happening today.
 
 
-#### ✅ What I Did
+### ✅ What I Did
 
 **1. VM & USB Passthrough (Hardware Detection)**
 * **The Issue:** UTM was not detecting the RPLIDAR C1 at all (`lsusb` and `ls /dev/ttyUSB*` were empty).
@@ -102,7 +102,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 * **The Cause:** The LaserScan display's internal message queue (default size `10`) was filling up faster than RViz could render each frame.
 * **The Fix:** Increased **Queue Size** on the LaserScan display from `10` to `30`, giving RViz more buffer room and eliminating the dropped-frame warnings. Confirmed via `ros2 topic hz /scan` that the underlying publish rate was steady throughout — the drops were a rendering-side backlog, not a sensor/data problem.
 
-#### 📸 Visual Evidence
+### 📸 Visual Evidence
 <table>
   <tr>
     <td rowspan="2" align="center" width="50%" valign="middle">
@@ -128,7 +128,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 <br>
 
 
-#### 📊 Results
+### 📊 Results
 
 | Metric | Value |
 |--------|-------|
@@ -146,7 +146,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 
 
 
-#### 🧠 Key Learnings
+### 🧠 Key Learnings
 
 - **A "sourcing" error and a "removed macro" error can look identical.** Both throw `Unknown CMake command`. Sourcing the workspace is the first thing to check, but if the environment is correctly sourced and the error persists, the actual package code may be incompatible with the distro's `ament_cmake` version — worth checking the package's `CMakeLists.txt` directly rather than re-sourcing repeatedly.
 - **Bleeding-edge distros break older packages.** Being on the newest possible ROS 2 release (Lyrical) means some community packages, including `sllidar_ros2`, haven't caught up to internal API changes yet. Manual patching is sometimes the only option until an upstream fix lands.
@@ -158,7 +158,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 
 
 
-#### ❌ Issues Faced & Solutions
+### ❌ Issues Faced & Solutions
 
 | Issue | Cause | Solution |
 |-------|-------|----------|
@@ -173,7 +173,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 
 
 
-#### 📁 Files Created / Modified
+### 📁 Files Created / Modified
 
 - [`CMakeLists.txt`](../ros2_ws/src/sllidar_ros2/CMakeLists.txt) (in `sllidar_ros2`) — patched `ament_target_dependencies` calls to `target_link_libraries` for Lyrical compatibility.
 - `~/ros2_ws/` — ROS 2 workspace containing the built `sllidar_ros2` package.
@@ -181,7 +181,7 @@ Using ROS 2 wasn't just a preference; it was practically required. Here is why:
 
 **Next Steps:** Save the working RViz configuration for one-command reloading (`rviz2 -d <config>.rviz`), then move on to mounting the RPLIDAR on a chassis and integrating Arduino-driven movement commands.
 
-#### 🚀 Appendix: Setup & Launch on a New Machine
+### 🚀 Appendix: Setup & Launch on a New Machine
 
 When transferring this project to a new computer (like a lab desktop), you will clone the GitHub repository. Because the machine-specific `build` and `install` folders should be ignored by `.gitignore` (double-check this is actually the case in your repo before relying on it), you must perform a one-time compilation on the new hardware to generate those missing files before you can launch the LiDAR.
 

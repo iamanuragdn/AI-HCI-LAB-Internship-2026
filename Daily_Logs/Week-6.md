@@ -7,6 +7,8 @@
 
 ## Day 1: July 7, 2026
 
+> 💡 **Extended Documentation :** For a more comprehensive breakdown of our learning process & expanded notes [ROS Notion Workspace](https://angry-bicycle-96b.notion.site/ROS-398212d279058091a39ce2bd61287eea?source=copy_link)
+
 ## Robotics — SLAMTEC RPLIDAR C1 Integration with ROS 2 on a Virtualized Ubuntu Environment
 
 **Hardware:** SLAMTEC RPLIDAR C1 (CP2102N USB-to-UART bridge)

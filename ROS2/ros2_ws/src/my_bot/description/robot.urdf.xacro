@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<robot name="my_bot" xmlns:xacro="http://www.ros.org/wiki/xacro"> <!-- Starts the master blueprint, names the entire completed robot "my_bot", and turns on the Xacro toolkit so we can use include commands.-->
+
+    <xacro:include filename="robot_core.xacro"/>
+    <xacro:include filename="lidar.xacro"/>
+
+</robot>

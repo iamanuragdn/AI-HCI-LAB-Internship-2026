@@ -1,0 +1,116 @@
+<?xml version="1.0"?>    <!--every xacro file starts with this; it just tells the computer "this is an XML file." -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">      <!-- this is the outer wrapper every URDF/xacro file needs. xmlns:xacro is just enabling the special xacro: features (like macros) inside this file. -->
+    <xacro:include filename="inertial_macros.xacro"/>
+
+    <!-- this defines a reusable color named "white" that any part later can reference by 
+    name instead of retyping the RGBA numbers. rgba="1 1 1 1" = red=1, green=1, blue=1, 
+    alpha(opacity)=1 → full white, fully solid. -->
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <!-- 
+    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    -->
+
+    <!-- BASE LINK -->
+    <!-- an empty link -->
+    <link name="base_link">     <!-- base_link is a convention: a reference-point origin for your whole robot (like the (0,0,0) of a graph). -->
+    </link>
+
+
+    <!-- CHASSIS LINK -->
+    <!-- connecting base_link to the actual body -->
+    <joint name="chassis_joint" type="fixed"> <!-- here, fixed means these two parts never move relative to each other (as opposed to a wheel joint, which would rotate).-->
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="0 0 0"/> <!-- means "the chassis sits exactly at base_link's position, no offset." -->
+    </joint>
+
+
+    <!-- the actual visible box -->
+    <link name="chassis">
+        <visual> <!-- visual is the part you see in RViz, Gazebo, etc. --> 
+            <origin xyz="0.15 0 0.075"/>
+            <geometry>
+                <box size="0.3 0.3 0.15"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision> <!-- collision is the part used for physics simulation and obstacle avoidance --> 
+            <origin xyz="0.15 0 0.075"/>
+            <geometry>
+                <box size="0.3 0.3 0.15"/>
+            </geometry>
+        </collision>
+        <xacro:box_inertia mass="0.5" x="0.3" y="0.3" z="0.15"/>
+    </link>
+
+
+    <!-- GAZEBO MATERIAL + PHYSICS FOR CHASSIS -->
+    <gazebo reference="chassis">
+        <material>Gazebo/White</material> <!-- Standard URDF colors often don't translate to Gazebo's graphics engine. This line explicitly tells Gazebo to paint the chassis using its own built-in "White" texture library so it doesn't just show up as an invisible or grey box. -->
+        <mu1>0.2</mu1> <!-- mu1 stands for the Coefficient of Friction in the primary direction (usually forward/backward). A value of 0.2 means the surface is somewhat slick (like hard plastic on a smooth floor). It won't stick, but it won't slide like ice either. -->
+        <mu2>0.2</mu2> <!-- mu2 is the Coefficient of Friction in the secondary direction (left/right). Setting both to 0.2 means the chassis has the same moderate "grippiness" from all sides.-->
+    </gazebo>
+
+    <!-- WHEEL LINKS AND JOINTS -->
+<xacro:macro name="wheel" params="prefix x_reflect y_reflect">
+    <joint name="${prefix}_wheel_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="${prefix}_wheel"/>
+        <origin xyz="0.1 ${y_reflect * 0.175} 0.05" rpy="${-pi/2} 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="${prefix}_wheel">
+        <visual>
+            <geometry>x
+                <cylinder radius="0.05" length="0.04"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.04"/>
+            </geometry>
+        </collision>
+        <xacro:cylinder_inertia mass="0.1" length="0.04" radius="0.05"/>
+    </link>
+
+    <gazebo reference="${prefix}_wheel">
+        <material>Gazebo/Black</material>
+        <mu1>1.0</mu1>
+        <mu2>1.0</mu2>
+    </gazebo>
+</xacro:macro>
+
+<xacro:wheel prefix="left" x_reflect="1" y_reflect="1"/>
+<xacro:wheel prefix="right" x_reflect="1" y_reflect="-1"/>
+
+    <gazebo>
+<plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+    <left_joint>left_wheel_joint</left_joint>
+    <right_joint>right_wheel_joint</right_joint>
+    <wheel_separation>0.3</wheel_separation>
+    <wheel_radius>0.05</wheel_radius>
+    <odom_publish_frequency>10</odom_publish_frequency>
+    <topic>cmd_vel</topic>
+    <odom_topic>odom</odom_topic>
+    <frame_id>odom</frame_id>
+    <child_frame_id>base_link</child_frame_id>
+    <tf_topic>tf</tf_topic>
+</plugin>
+</gazebo>
+
+</robot>

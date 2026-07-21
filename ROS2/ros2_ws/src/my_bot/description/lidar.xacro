@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- LIDAR JOINT (how those parts connect) -->
+    <joint name="laser_joint" type="fixed"> <!-- This tells the simulator that the LiDAR is rigidly attached to the robot.-->
+        <parent link="chassis"/> <!-- this establishes chassis as base part -->
+        <child link="laser_frame"/> <!-- This establishes the LiDAR as the part being attached to the chassis. -->
+        <origin xyz="0.1 0 0.1785" rpy="0 0 0"/> <!-- This dictates exactly where to glue the LiDAR relative to the center of the chassis ; rpy is Roll, Pitch, and Yaw -->
+    </joint>
+
+    <!-- LIDAR LINK (the physical parts) -->
+    <link name="laser_frame">
+        <visual>
+            <geometry> <!-- here, it to draw a <cylinder> with a radius of 0.0385 meters and a length (height) of 0.0385 meters.-->
+                <cylinder radius="0.0385" length="0.0385"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision> <!-- this creates an invisible "hitbox" for the physics simulator (like Gazebo). -->
+            <geometry>
+                <cylinder radius="0.0385" length="0.0385"/>
+            </geometry>
+        </collision>
+        <xacro:cylinder_inertia mass="0.125" length="0.0385" radius="0.0385"/>
+    </link>
+
+
+    <!-- GAZEBO LIDAR SENSOR -->
+    <gazebo reference="laser_frame"> <!-- Tells Gazebo (the simulator) to apply all these special sensor settings to the physical "laser_frame" link we built earlier. -->
+        <sensor name="lidar" type="gpu_lidar">
+            <pose>0 0 0 0 0 0</pose> <!-- Position and rotation offset. It is all zeros because we already placed it perfectly in the URDF joint. -->
+            <topic>scan</topic> <!-- Sets the ROS "radio station" (topic) where the sensor will broadcast its laser data so other nodes can listen to it. -->
+            <update_rate>10</update_rate> <!-- Tells the sensor to spin and take a full reading 10 times per second (10 Hz).. -->
+            <always_on>true</always_on> <!-- Keeps the sensor always on. -->
+            <visualize>true</visualize> <!-- Makes the sensor visible in the simulator. -->
+
+            <lidar> <!-- This section is where we set the LiDAR's scanning parameters. -->
+                <scan> <!-- Opens the settings for how the laser sweeps horizontally across the room. -->
+                    <horizontal>
+                        <samples>360</samples> <!-- Shoots out 360 individual laser beams per spin (one beam for every degree). -->
+                        <min_angle>-3.14159</min_angle> <!-- Starts the sweep at -180 degrees (written in radians, which is negative Pi). -->
+                        <max_angle>3.14159</max_angle> <!-- Ends the sweep at +180 degrees (written in radians, which is positive Pi). -->
+                    </horizontal>
+                </scan>
+                <range> <!-- Opens the settings for how far the laser can see. -->
+                    <min>0.05</min> <!-- The laser will ignore anything closer than 0.05 meters (5 centimeters) -->
+                    <max>12.0</max> <!-- The laser will ignore anything further than 12 meters away. -->
+                </range>
+            </lidar>
+        </sensor>
+    </gazebo>
+
+</robot>

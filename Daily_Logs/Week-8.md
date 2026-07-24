@@ -58,6 +58,24 @@
 
 <br>
 
+### 📸 Visual Evidence
+<table>
+  <tr>
+    <td align="center" width="50%" valign="middle">
+      <b>1. Real Robot</b><br>
+      Reference photo of the 3-omni-wheel Arduino robot.<br><br>
+      <img src="./assets/week8_real_robot.jpg" height="260" style="display:block; margin:0 auto;" alt="Real triangular omni-wheel robot with Arduino, motor drivers, and battery visible">
+    </td>
+    <td align="center" width="50%" valign="middle">
+      <b>2. Gazebo — Confirmed Movement</b><br>
+      <code>omni_bot</code> moving forward, sideways, and rotating with <code>fake_planar_move.py</code>.<br><br>
+      <img src="./assets/week8_gazebo_moving.png" height="260" style="display:block; margin:0 auto;" alt="omni_bot displaced from its origin pose in Gazebo, confirming successful movement">
+    </td>
+  </tr>
+</table>
+
+<br>
+
 
 ### 📊 Results
 
@@ -112,24 +130,6 @@
 - [CMakeLists.txt](../ROS2/ros2_ws/src/omni_bot/CMakeLists.txt) / [package.xml](../ROS2/ros2_ws/src/omni_bot/package.xml) — build config, install rules, dependencies (`rclpy`, `geometry_msgs`, `nav_msgs`, `tf2_ros`, etc.).
 - [OMNI_KINEMATICS.md](../ROS2/ros2_ws/src/omni_bot/OMNI_KINEMATICS.md) — 3-wheel omni kinematics formula + worked examples, for Part 2.
 - [README.md](../ROS2/ros2_ws/src/omni_bot/README.md) — setup/build/launch instructions + assumptions to fix once real measurements are taken.
-
-<br>
-
-### 📸 Visual Evidence
-<table>
-  <tr>
-    <td align="center" width="50%" valign="middle">
-      <b>1. Real Robot</b><br>
-      Reference photo of the 3-omni-wheel Arduino robot.<br><br>
-      <img src="./assets/week8_real_robot.jpg" height="260" style="display:block; margin:0 auto;" alt="Real triangular omni-wheel robot with Arduino, motor drivers, and battery visible">
-    </td>
-    <td align="center" width="50%" valign="middle">
-      <b>2. Gazebo — Confirmed Movement</b><br>
-      <code>omni_bot</code> moving forward, sideways, and rotating with <code>fake_planar_move.py</code>.<br><br>
-      <img src="./assets/week8_gazebo_moving.png" height="260" style="display:block; margin:0 auto;" alt="omni_bot displaced from its origin pose in Gazebo, confirming successful movement">
-    </td>
-  </tr>
-</table>
 
 <br>
 
@@ -230,13 +230,6 @@
  
 <br>
 
-### 📁 Files Created / Modified
-
-- [rf2o_params.yaml](../ROS2/ros2_ws/src/my_bot/config/rf2o_params.yaml) — explicit `rf2o_laser_odometry` parameters, fixing the `init_pose_from_topic` startup bug.
-- [mapper_params_online_async.yaml](../ROS2/ros2_ws/src/my_bot/config/mapper_params_online_async.yaml) — corrected `base_frame` to match the real TF tree.
-- [rf2o_params.yaml](../ROS2/mapping/rf2o_params.yaml) and [mapper_params_online_async.yaml](../ROS2/mapping/mapper_params_online_async.yaml) — backup/reference copies stored in the dedicated `mapping/` folder under `ROS2/`.
-
-<br>
 
 ### 🧠 Key Learnings
  
@@ -258,6 +251,14 @@
 | Resulting map was noisy and stretched into a star/X shape | `rf2o` scan-matching odometry drifts during fast/jerky handheld rotation | Identified fix for next pass: move slowly, pause between turns, walk a closed loop for loop-closure correction |
 | Too many terminals open, session became hard to track | Iterative debugging left old terminals running with stale state | Closed everything and restarted the full 7-terminal sequence cleanly, in order |
  
+<br>
+
+### 📁 Files Created / Modified
+
+- [rf2o_params.yaml](../ROS2/ros2_ws/src/my_bot/config/rf2o_params.yaml) — explicit `rf2o_laser_odometry` parameters, fixing the `init_pose_from_topic` startup bug.
+- [mapper_params_online_async.yaml](../ROS2/ros2_ws/src/my_bot/config/mapper_params_online_async.yaml) — corrected `base_frame` to match the real TF tree.
+- [rf2o_params.yaml](../ROS2/mapping/rf2o_params.yaml) and [mapper_params_online_async.yaml](../ROS2/mapping/mapper_params_online_async.yaml) — backup/reference copies stored in the dedicated `mapping/` folder under `ROS2/`.
+
 <br>
 
 ### ▶️ How to Run This — Step by Step (7 Terminals)

@@ -105,6 +105,8 @@ ros2_ws/
   </tr>
 </table>
 
+Video evidence: [Week 7 my_bot driving demo](./assets/week7_my_bot_driving.mp4)
+
 <br>
 
 ### 📊 Results

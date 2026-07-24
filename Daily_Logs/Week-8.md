@@ -210,6 +210,8 @@
     </td>
   </tr>
 </table>
+
+Video evidence: [Week 8 Day 2 SLAM mapping demo](./assets/week8_day2_slam_mapping_demo.mp4)
 <br>
 
 ### 📊 Results

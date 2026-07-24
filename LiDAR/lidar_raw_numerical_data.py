@@ -1,9 +1,8 @@
-import serial
-import struct
-import time
+import serial # library lets Python talk through computer's USB ports.
+import time #used for time.sleep(), i.e., making Python wait/pause
 
-PORT = '/dev/cu.SLAB_USBtoUART'
-BAUD = 460800
+PORT = '/dev/cu.SLAB_USBtoUART' # path of the LiDAR connected to my dev
+BAUD = 460800 # BAUD rate is the speed of communication (bits per sec)
 
 ser = serial.Serial(PORT, BAUD, timeout=1)
 time.sleep(0.1)

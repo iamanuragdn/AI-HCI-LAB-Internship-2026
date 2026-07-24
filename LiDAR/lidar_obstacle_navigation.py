@@ -1,7 +1,7 @@
 """
 RPLIDAR C1 — Final Navigation System
 NIT Agartala ILAB Internship 2026
-Anurag Debnath
+Anurag & Abhilash
 """
 import serial, time, numpy as np
 import matplotlib.pyplot as plt

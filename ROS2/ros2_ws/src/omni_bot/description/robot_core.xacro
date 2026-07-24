@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="inertial_macros.xacro" />
+
+  <!-- ================================================================= -->
+  <!-- TUNABLE DIMENSIONS — measure your real robot and edit these       -->
+  <!-- (all in meters / kg unless noted). Values below are ESTIMATES     -->
+  <!-- based on your photos — replace with real measurements ASAP.       -->
+  <!-- ================================================================= -->
+  <xacro:property name="triangle_side"   value="0.30"/>   <!-- edge length of the triangle -->
+  <xacro:property name="wall_height"     value="0.10"/>   <!-- height of the side panels -->
+  <xacro:property name="wall_thickness"  value="0.01"/>
+  <xacro:property name="chassis_mass"    value="2.0"/>
+
+  <xacro:property name="wheel_radius"    value="0.03"/>   <!-- omni wheel radius -->
+  <xacro:property name="wheel_width"     value="0.025"/>
+  <xacro:property name="wheel_mass"      value="0.15"/>
+  <!-- 0° puts wheel1 directly at the "front tip" (matches your real robot's
+       photos: one wheel points straight ahead along the direction of travel).
+       With this value, pure forward motion (vx only) makes wheel1 rest at
+       zero speed while wheels 2 & 3 spin equally and oppositely — see
+       OMNI_KINEMATICS.md for the full worked numbers. -->
+  <xacro:property name="wheel_angle_offset" value="0"/>
+
+  <!-- circumradius of an equilateral triangle: side / sqrt(3) -->
+  <xacro:property name="circumradius" value="${triangle_side / 1.7320508}"/>
+
+  <!-- ================================================================= -->
+  <!-- BASE LINK — required massless root, matches my_bot convention     -->
+  <!-- ================================================================= -->
+  <link name="base_link"></link>
+
+  <joint name="chassis_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <!-- ================================================================= -->
+  <!-- CHASSIS — collision approximated as a cylinder (circumscribed),   -->
+  <!-- visual built from 3 flat wall panels arranged as a triangle       -->
+  <!-- (mirrors the real robot's 3-panel construction seen in photos)    -->
+  <!-- ================================================================= -->
+  <link name="chassis">
+
+    <!-- Visual: three wall panels, one per triangle edge -->
+    <xacro:macro name="wall_panel" params="angle_deg">
+      <visual>
+        <origin xyz="${(circumradius*0.5)*cos(angle_deg*pi/180)} ${(circumradius*0.5)*sin(angle_deg*pi/180)} ${wall_height/2}"
+                rpy="0 0 ${angle_deg*pi/180 + pi/2}"/>
+        <geometry>
+          <box size="${triangle_side} ${wall_thickness} ${wall_height}"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="0.9 0.8 0.1 1"/>
+        </material>
+      </visual>
+    </xacro:macro>
+
+    <!-- NOTE: wall panels sit at EDGE MIDPOINTS, which are 60° offset from
+         the wheel/vertex angles below — this is what makes the wheels land
+         exactly at the triangle's corners, matching the real robot. -->
+    <xacro:wall_panel angle_deg="${60  + wheel_angle_offset}"/>
+    <xacro:wall_panel angle_deg="${180 + wheel_angle_offset}"/>
+    <xacro:wall_panel angle_deg="${300 + wheel_angle_offset}"/>
+
+    <!-- Collision: single cylinder, simpler + more stable for the physics engine -->
+    <collision>
+      <origin xyz="0 0 ${wall_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${circumradius}" length="${wall_height}"/>
+      </geometry>
+    </collision>
+
+    <xacro:inertial_cylinder mass="${chassis_mass}" length="${wall_height}" radius="${circumradius}">
+      <origin xyz="0 0 ${wall_height/2}" rpy="0 0 0"/>
+    </xacro:inertial_cylinder>
+  </link>
+
+  <gazebo reference="chassis">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <!-- ================================================================= -->
+  <!-- WHEELS — 3x, placed at the triangle's vertices, VISUAL ONLY.      -->
+  <!-- No wheel joints/friction are simulated — see PlanarMove plugin     -->
+  <!-- below, which moves the whole body directly from /cmd_vel.         -->
+  <!-- ================================================================= -->
+  <xacro:macro name="omni_wheel_visual" params="prefix angle_deg">
+    <link name="${prefix}_wheel">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+        <material name="black">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_width}" radius="${wheel_radius}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:inertial_cylinder>
+    </link>
+
+    <!-- rpy = (0, 90°, angle_deg): this rotates the cylinder's default
+         Z-axis to point RADIALLY (straight out from the robot's center
+         through this wheel). That makes the wheel's rolling direction
+         TANGENTIAL — the correct mounting for an omni/kiwi wheel, and
+         what makes each wheel drive rather than idle when the robot
+         moves in any direction. -->
+    <joint name="${prefix}_wheel_joint" type="fixed">
+      <parent link="chassis"/>
+      <child link="${prefix}_wheel"/>
+      <origin xyz="${circumradius*cos(angle_deg*pi/180)} ${circumradius*sin(angle_deg*pi/180)} ${-wheel_radius+0.005}"
+              rpy="0 ${pi/2} ${angle_deg*pi/180}"/>
+    </joint>
+
+    <gazebo reference="${prefix}_wheel">
+      <material>Gazebo/Black</material>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:omni_wheel_visual prefix="wheel1" angle_deg="${0   + wheel_angle_offset}"/>
+  <xacro:omni_wheel_visual prefix="wheel2" angle_deg="${120 + wheel_angle_offset}"/>
+  <xacro:omni_wheel_visual prefix="wheel3" angle_deg="${240 + wheel_angle_offset}"/>
+
+  <!-- ================================================================= -->
+  <!-- NOTE: this robot's Gazebo Harmonic build doesn't ship the         -->
+  <!-- PlanarMove system plugin, so holonomic movement is instead        -->
+  <!-- provided by a Python ROS 2 node — scripts/fake_planar_move.py —   -->
+  <!-- launched separately in launch_sim.launch.py. No Gazebo plugin     -->
+  <!-- reference needed here.                                            -->
+  <!-- ================================================================= -->
+
+
+</robot>
